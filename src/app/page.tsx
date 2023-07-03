@@ -22,7 +22,7 @@ const CenteredBox = styled(Box)`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  color: white;
+  color: black;
 `;
 
 const CustomTextField = styled(TextField)`
@@ -94,7 +94,7 @@ export default function Home() {
         bgcolor="background.default"
       >
         <Container maxWidth="sm">
-          <Typography variant="h4" align="center" gutterBottom>
+          <Typography color="black" variant="h4" align="center" gutterBottom>
             Unique Character Finder
           </Typography>
           <CustomTextField
