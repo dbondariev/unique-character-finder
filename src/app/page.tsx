@@ -50,7 +50,7 @@ const theme = createTheme({
 });
 
 function findUniqueCharacter(text: string): string | null {
-  const words = text.split(" ");
+  const words = text.toLowerCase().split(" ");
 
   const charCount: { [key: string]: number } = words
     .flatMap((word) => Array.from(word))
