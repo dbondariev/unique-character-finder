@@ -1,15 +1,12 @@
-'use client'
-
-import React, { useState } from "react";
+"use client";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, Button } from "@mui/material";
-import styled from "styled-components";
+import { styled } from "@mui/system";
 
-const OutputText = styled(TextField)`
-  margin-top: 10px !important;
-  & .MuiInputBase-input {
-    color: white;
+const CustomOutputText = styled(TextField)`
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   }
-  color:white;
+  margin: 16px;
 `;
 
 const CenteredBox = styled(Box)`
@@ -17,7 +14,13 @@ const CenteredBox = styled(Box)`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  color: white;
+  margin: 16px;
+`;
+
+const CustomTextField = styled(TextField)`
+  .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  }
+  margin: 16px;
 `;
 
 function findUniqueCharacter(text: string): string | null {
@@ -40,6 +43,13 @@ function findUniqueCharacter(text: string): string | null {
 export default function Home() {
   const [inputText, setInputText] = useState("");
   const [outputText, setOutputText] = useState<string | null>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.focus();
+    }
+  }, []);
 
   const runProgram = () => {
     const uniqueChar = findUniqueCharacter(inputText);
@@ -54,15 +64,17 @@ export default function Home() {
         <Typography variant="h4" align="center" gutterBottom>
           Unique Character Finder
         </Typography>
-        <TextField
+        <CustomTextField
           id="inputText"
           label="Enter the text"
           multiline
           rows={6}
           fullWidth
+          variant="outlined"
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           InputProps={{ style: { color: "white" } }}
+          inputRef={textAreaRef}
         />
         <Button
           variant="contained"
@@ -72,14 +84,15 @@ export default function Home() {
         >
           Run Program
         </Button>
-        <OutputText
+        <CustomOutputText
           id="outputText"
           label="Result"
           multiline
           rows={2}
           fullWidth
+          variant="outlined"
           value={outputText || ""}
-          InputProps={{ style: { color: "red" } }}
+          InputProps={{ style: { color: "white" } }}
         />
       </Container>
     </CenteredBox>
