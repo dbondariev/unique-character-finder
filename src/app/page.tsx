@@ -6,7 +6,7 @@ import { styled } from "@mui/system";
 const CustomOutputText = styled(TextField)`
   .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   }
-  margin: 16px;
+  margin-top: 16px;
 `;
 
 const CenteredBox = styled(Box)`
@@ -14,13 +14,12 @@ const CenteredBox = styled(Box)`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin: 16px;
 `;
 
 const CustomTextField = styled(TextField)`
   .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   }
-  margin: 16px;
+margin-bottom: 16px
 `;
 
 function findUniqueCharacter(text: string): string | null {
