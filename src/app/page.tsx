@@ -1,6 +1,14 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { Box, Container, Typography, TextField, Button } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  TextField,
+  Button,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
 import { styled } from "@mui/system";
 
 const CustomOutputText = styled(TextField)`
@@ -14,13 +22,32 @@ const CenteredBox = styled(Box)`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  color: white;
 `;
 
 const CustomTextField = styled(TextField)`
   .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   }
-margin-bottom: 16px
+  margin-bottom: 16px;
 `;
+
+const theme = createTheme({
+  palette: {
+    background: {
+      default: "#ffffff",
+    },
+  },
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+            {},
+        },
+      },
+    },
+  },
+});
 
 function findUniqueCharacter(text: string): string | null {
   const words = text.split(" ");
@@ -58,42 +85,48 @@ export default function Home() {
   };
 
   return (
-    <CenteredBox>
-      <Container maxWidth="sm">
-        <Typography variant="h4" align="center" gutterBottom>
-          Unique Character Finder
-        </Typography>
-        <CustomTextField
-          id="inputText"
-          label="Enter the text"
-          multiline
-          rows={6}
-          fullWidth
-          variant="outlined"
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          InputProps={{ style: { color: "white" } }}
-          inputRef={textAreaRef}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={runProgram}
-          fullWidth
-        >
-          Run Program
-        </Button>
-        <CustomOutputText
-          id="outputText"
-          label="Result"
-          multiline
-          rows={2}
-          fullWidth
-          variant="outlined"
-          value={outputText || ""}
-          InputProps={{ style: { color: "white" } }}
-        />
-      </Container>
-    </CenteredBox>
+    <ThemeProvider theme={theme}>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+        bgcolor="background.default"
+      >
+        <Container maxWidth="sm">
+          <Typography variant="h4" align="center" gutterBottom>
+            Unique Character Finder
+          </Typography>
+          <CustomTextField
+            inputRef={textAreaRef}
+            id="inputText"
+            label="Enter the text"
+            multiline
+            rows={6}
+            fullWidth
+            variant="outlined"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={runProgram}
+            fullWidth
+          >
+            Run Program
+          </Button>
+          <CustomOutputText
+            id="outputText"
+            label="Result"
+            multiline
+            rows={2}
+            fullWidth
+            variant="outlined"
+            value={outputText || ""}
+          />
+        </Container>
+      </Box>
+    </ThemeProvider>
   );
 }
